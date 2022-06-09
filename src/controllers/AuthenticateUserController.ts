@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../database";
-import { User } from "../entities/User";
+import { User } from "../database/entities/User";
 import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 

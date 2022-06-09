@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../database";
-import { Tag } from "../entities/Tag";
+import { Tag } from "../database/entities/Tag";
 
 export class CreateTagController {
   async handle(request: Request, response: Response, next: NextFunction) {

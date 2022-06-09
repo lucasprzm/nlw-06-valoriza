@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entities/User";
+import { User } from "../database/entities/User";
 import { AppDataSource } from "../database/index";
 import { hash } from "bcryptjs";
 
