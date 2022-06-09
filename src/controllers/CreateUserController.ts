@@ -5,15 +5,20 @@ import { AppDataSource } from "../database/index";
 export class CreateUserController {
   async handle(request: Request, response: Response, next: NextFunction) {
     const userRepository = AppDataSource.getRepository(User);
-    const { name, email, admin } = request.body;
+    const { name, email, password, admin } = request.body;
     if (!email) {
       throw new Error("Incorrect email!");
     }
-    const userAlreadyExists = await userRepository.findOneBy({ email: email });
+    const userAlreadyExists = await userRepository.findOneBy({ email });
     if (userAlreadyExists) {
       throw new Error("User already exists!");
     }
-    const user = userRepository.create({ name: name, email: email, admin: admin });
+    const user = userRepository.create({
+      name,
+      email,
+      admin,
+      password,
+    });
     await userRepository.save(user);
     return response.status(200).json(user);
   }

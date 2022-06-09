@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   database: "src/database/database.sqlite",
   migrations: ["src/database/migrations/*.ts"],
   entities: [User, Tag],
-  synchronize: true,
+  synchronize: false,
   logging: false,
   // cli: {
   //   migrationsDir: "src/database/migrations",
