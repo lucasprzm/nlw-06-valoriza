@@ -7,13 +7,15 @@ export class CreateComplimentController {
   async handle(request: Request, response: Response) {
     const complimentRepository = AppDataSource.getRepository(Compliment);
     const userRepository = AppDataSource.getRepository(User);
-    const { tag_id, user_sender, user_receiver, message } = request.body;
+    const { tag_id, user_receiver, message } = request.body;
+    const { user_id } = request;
 
-    if (user_sender === user_receiver) {
+    if (user_id === user_receiver) {
       throw new Error("You can't send a compliment to yourself!");
     }
 
     const userReceiverExists = await userRepository.findOneBy({ id: user_receiver });
+    console.log(userReceiverExists);
     if (!userReceiverExists) {
       throw new Error("User Receiver does not exist!");
     }
@@ -21,7 +23,7 @@ export class CreateComplimentController {
     const compliment = complimentRepository.create({
       tag_id,
       user_receiver,
-      user_sender,
+      user_sender: user_id,
       message,
     });
     await complimentRepository.save(compliment);
