@@ -3,6 +3,7 @@ import { AppDataSource } from "../database";
 import { User } from "../database/entities/User";
 import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import "dotenv/config";
 
 export class AuthenticateUserController {
   async handle(request: Request, response: Response) {
@@ -16,7 +17,7 @@ export class AuthenticateUserController {
     if (!passwordMatch) {
       throw new Error("Email/Password Incorrect!");
     }
-    const token = sign({ email: user.email }, "314a9e485ee3170d49518b6713233b2a", {
+    const token = sign({ email: user.email }, process.env.SECRET_KEY, {
       subject: user.id,
       expiresIn: "1d",
     });

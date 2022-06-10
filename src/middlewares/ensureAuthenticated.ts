@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
+import "dotenv/config";
 
 interface IPayLoad {
   sub: string;
@@ -12,7 +13,7 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
   }
   const [, token] = authToken.split(" ");
   try {
-    const { sub } = verify(token, "314a9e485ee3170d49518b6713233b2a") as IPayLoad;
+    const { sub } = verify(token, process.env.SECRET_KEY) as IPayLoad;
     request.user_id = sub;
     return next();
   } catch (error) {
