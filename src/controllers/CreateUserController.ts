@@ -6,7 +6,7 @@ import { hash } from "bcryptjs";
 export class CreateUserController {
   async handle(request: Request, response: Response, next: NextFunction) {
     const userRepository = AppDataSource.getRepository(User);
-    const { name, email, password, admin } = request.body;
+    const { name, email, password, admin = false } = request.body;
     const passwordHash = await hash(password, 10);
     if (!email) {
       throw new Error("Incorrect email!");

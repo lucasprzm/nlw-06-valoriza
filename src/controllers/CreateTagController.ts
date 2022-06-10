@@ -9,11 +9,11 @@ export class CreateTagController {
     if (!name) {
       throw new Error("You must fill de name field!");
     }
-    const tagAlreadyExists = await tagRepository.findOneBy({ name: name });
+    const tagAlreadyExists = await tagRepository.findOneBy({ name });
     if (tagAlreadyExists) {
       throw new Error("Tag already exists!");
     }
-    const tag = tagRepository.create({ name: name });
+    const tag = tagRepository.create({ name });
     await tagRepository.save(tag);
     return response.status(200).json(tag);
   }
